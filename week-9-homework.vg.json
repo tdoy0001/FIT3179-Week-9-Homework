@@ -1,8 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": "Australian Wine Yields by Region, 2023",
-  "width": 600,
-  "height": 600,
+  "width": 700,
+  "height": 700,
   "projection": {
     "type": "equirectangular"
   },
@@ -63,7 +63,7 @@
       "mark": {
         "type": "geoshape",
         "stroke": "black",
-        "strokeWidth": 0.5
+        "strokeWidth": 0.8
       },
       "encoding": {
         "color": {
