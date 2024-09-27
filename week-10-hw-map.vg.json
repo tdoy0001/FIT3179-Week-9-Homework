@@ -1,0 +1,87 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Yields by region in 2023",
+  "width": 350,
+  "height": 300,
+  "projection": {
+    "type": "equirectangular"
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "SE_Aus_Graticule.json",
+        "format": {
+          "type": "topojson",
+          "feature": "ne_110m_graticules_5"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fillOpacity": 0,
+        "stroke": "lightgrey",
+        "strokeWidth": 0.5
+      }
+    },
+    {
+      "data": {
+        "url": "SE_Aus_Graticule.json",
+        "format": {
+          "type": "topojson",
+          "feature": "STE_2021_AUST_GDA2020"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "color":"#edf8e9",
+        "fillOpacity": 0.3,
+        "stroke": "black",
+        "strokeWidth": 0.5
+      }
+    },
+    {
+      "data": {
+        "url": "SE_Aus_Graticule.json",
+        "format": {
+          "type": "topojson",
+          "feature": "Wine_Geographical_Indications_Australia_2023"
+        }
+      },
+      "transform": [
+        {
+          "lookup": "properties.GI_NAME",
+          "from": {
+            "data": {
+              "url": "Region-Statistics-2023.csv"
+            },
+            "key": "Region",
+            "fields": [
+              "Yield", "Production", "Area"
+            ]
+          }
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "stroke": "black",
+        "strokeWidth": 0.8
+      },
+      "encoding": {
+        "color": {
+          "field": "Yield",
+          "type": "quantitative",
+          "title": "Yield (t/ha)",
+          "scale":{
+            
+            "range":["#feedde","#fdbe85","#fd8d3c","#e6550d","#a63603"]
+          }
+        },
+        "tooltip": [
+          { "field": "properties.GI_NAME", "type": "nominal", "title": "Region" },
+          { "field": "Yield", "type": "quantitative", "title": "Yield (t/ha)" },
+          { "field": "Production", "type": "quantitative", "title": "Production (t)" },
+          { "field": "Area", "type": "quantitative", "title": "Area (ha)" }
+        ]
+      }
+    }
+  ]
+}
